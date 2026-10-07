@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0a0a0b;
+  --color-charcoal: #141416;
+  --color-graphite: #1e1e21;
+  /* warm off-white type: 16.4:1 on ink */
+  --color-bone: #ece6dc;
+  /* secondary type: 7.4:1 on ink */
+  --color-ash: #a39c91;
+  --color-champagne: #cbb68f;
+  --color-line: rgb(236 230 220 / 0.14);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  /* the loader locks scrolling; reserving the gutter keeps the viewport width (and layout) stable */
+  scrollbar-gutter: stable;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  font-feature-settings: "ss01";
+}
+
+::selection { background: var(--color-bone); color: var(--color-ink); }
+
+:focus-visible {
+  outline: 1.5px solid var(--color-bone);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Small uppercase labels: 11–13px, 0.12em tracking */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Display type */
+@utility display-hero {
+  /* phones get their own scale (13.4vw keeps "EXPERIENCED." inside 320–767px); 4rem+ from tablet up */
+  font-size: clamp(2.6rem, 13.4vw, 4rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+@utility display-section {
+  font-size: clamp(2.4rem, 11.5vw, 3rem);
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .display-hero { font-size: clamp(4rem, 10vw, 11rem); }
+  .display-section { font-size: clamp(3rem, 7vw, 8rem); }
+}
+
+/* masked line used by text reveals */
+@utility line-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+/* A custom cursor is active (desktop, fine pointer, motion allowed) */
+.has-custom-cursor, .has-custom-cursor * { cursor: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* "scroll to discover" indicator: a short bar falling through a hairline */
+@keyframes drip {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
